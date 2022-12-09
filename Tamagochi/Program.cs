@@ -12,9 +12,7 @@ namespace Tamagochi
     internal class Program
     {
         public delegate string Delegate();
-
-        static System.Timers.Timer aTimer = new System.Timers.Timer(10000);
-
+            
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.Unicode;
@@ -71,7 +69,6 @@ namespace Tamagochi
                 int it  = 0;
                 Console.Clear();
                 zaika.Show();
-                Console.WriteLine($"\nКількість життів = {life}\n");
 
                 while (life > 1 && lifeCycle.ElapsedMilliseconds < lifeLenght)
                 {
@@ -89,8 +86,6 @@ namespace Tamagochi
                     else if (message == zaika.Play()) zaika.ShowWantPlay();
                     else if (message == zaika.Heal()) zaika.ShowWantHeal();
 
-                    Console.WriteLine($"\nКількість життів = {life}\n");
-
                     st.Start();
                     var result = MessageBox.Show(message, name, MessageBoxButtons.OKCancel);
                     if (result == DialogResult.OK) 
@@ -99,8 +94,7 @@ namespace Tamagochi
                         if (st.ElapsedMilliseconds > 10000)
                         {
                             life--;
-                            Console.WriteLine("Поки ви думали. Зайка захворів. -1 життя. Їй боляче");
-                            Console.WriteLine($"Життів залишилось {life}");
+                            Console.WriteLine("Поки ви думали. Зайка захворів.");
                         }
                         else
                             MessageBox.Show("Дякую!", name, MessageBoxButtons.OK);
@@ -110,8 +104,7 @@ namespace Tamagochi
                     {
                         life--;
                         st.Stop();
-                        Console.WriteLine("Зайка захворів. -1 життя. Їй боляче");
-                        Console.WriteLine($"Життів залишилось {life}");
+                        Console.WriteLine("Поки ви думали. Зайка захворів.");
                         MessageBox.Show(":(", name, MessageBoxButtons.OK);
                         st.Reset();
                         Thread.Sleep(800);
@@ -161,7 +154,8 @@ namespace Tamagochi
             if (lifeCycle.ElapsedMilliseconds >= lifeLenght)
             {
                 Console.Clear();
-                Console.WriteLine("Зайка прожила з вами щасливе життя.");
+                zaika.ShowWantGoodBye();
+                MessageBox.Show("Зайка прожила з вами щасливе життя!", name, MessageBoxButtons.OK);
             }
         }
     }
